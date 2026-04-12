@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<script>
+window["ai_edge_gallery_get_result"] = async (data) => {
+  try {
+    const { query } = JSON.parse(data);
+    if (!query) return JSON.stringify({ error: "No query provided." });
+
+    const response = await fetch(`https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`);
+    const htmlText = await response.text();
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlText, "text/html");
+
+    const results = Array.from(doc.querySelectorAll('.result__snippet'))
+      .map(el => el.textContent.trim())
+      .slice(0, 5);
+
+    return JSON.stringify(results.length ? { query, results } : { error: "No results found." });
+  } catch (err) {
+    return JSON.stringify({ error: err.message });
+  }
+};
+</script>
+</body>
+</html>
