@@ -34,7 +34,7 @@ On failure:
 { "error": "Error description" }
 ```
 
-> **Note:** Local, loopback, link-local, and private network URLs are blocked. Content is capped at 8 000 characters.
+> **Note:** Local, loopback, link-local, and private network URLs are blocked. Content is capped at 8,000 characters.
 
 ## Files
 
