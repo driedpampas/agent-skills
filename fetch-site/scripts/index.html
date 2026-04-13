@@ -65,7 +65,8 @@ window["ai_edge_gallery_get_result"] = async (data) => {
       return JSON.stringify({ error: "Local, loopback, link-local, and private network URLs are not allowed." });
     }
 
-    const response = await fetch(parsedUrl.toString());
+    const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(parsedUrl.toString())}`;
+    const response = await fetch(proxyUrl);
     if (!response.ok) {
       return JSON.stringify({ error: `Request failed with status ${response.status}.` });
     }
