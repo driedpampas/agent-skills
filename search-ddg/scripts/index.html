@@ -18,7 +18,8 @@ window["ai_edge_gallery_get_result"] = async (data) => {
     const doc = parser.parseFromString(htmlText, "text/html");
 
     const results = Array.from(doc.querySelectorAll('.result__snippet'))
-      .map(el => el.textContent.trim())
+      .map(el => (el.textContent || "").trim())
+      .filter(text => text)
       .slice(0, 5);
 
     return JSON.stringify(results.length ? { query, results } : { error: "No results found." });
