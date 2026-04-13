@@ -80,7 +80,7 @@ window["ai_edge_gallery_get_result"] = async (data) => {
     if (!doc.body) return JSON.stringify({ error: "No body content found." });
 
     // Extract remaining text, collapse whitespace, and hard limit to ~8000 chars
-    const content = doc.body.textContent.replace(/\s+/g, ' ').trim().substring(0, MAX_CONTENT_LENGTH);
+    const content = (doc.body.textContent || "").replace(/\s+/g, ' ').trim().substring(0, MAX_CONTENT_LENGTH);
 
     return JSON.stringify({ url: parsedUrl.toString(), content });
   } catch (err) {
