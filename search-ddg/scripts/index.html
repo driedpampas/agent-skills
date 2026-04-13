@@ -8,7 +8,9 @@ window["ai_edge_gallery_get_result"] = async (data) => {
     const { query } = JSON.parse(data);
     if (!query) return JSON.stringify({ error: "No query provided." });
 
-    const response = await fetch(`https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`);
+    const targetUrl = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
+    const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`;
+    const response = await fetch(proxyUrl);
     if (!response.ok) {
       return JSON.stringify({ error: `DuckDuckGo request failed with status ${response.status}.` });
     }
