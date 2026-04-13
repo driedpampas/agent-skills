@@ -24,7 +24,8 @@ window["ai_edge_gallery_get_result"] = async (data) => {
 
     return JSON.stringify(results.length ? { query, results } : { error: "No results found." });
   } catch (err) {
-    return JSON.stringify({ error: err.message });
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    return JSON.stringify({ error: errorMessage });
   }
 };
 </script>
